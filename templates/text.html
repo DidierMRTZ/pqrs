@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="validation.css" rel="stylesheet">
+  <title>Formulario Registro</title>
+</head>
+    <nav class="site-header sticky-top py-1">
+        <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2 d-none d-md-inline-block" href="#">Tour</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Product</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Features</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Enterprise</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Support</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Pricing</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Cart</a>
+        </div>
+    </nav>
+    <body class="bg-light">
+        <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h2>Descripción de PQRSF</h2>
+            <p class="lead">Petición: Solicitud de información o consulta sobre un proceso de la Compañía.
+                Queja: Es la inconformidad que puedes presentar sobre un producto adquirido o un servicio prestado por la Compañía.
+                Reclamo: Exigencia que realizas solicitando una respuesta a la situación dada a conocer.
+                Sugerencia: Son las recomendaciones que nos realizas para mejorar nuestros procesos internos.
+                Felicitación: Es el reconocimiento que puedes darnos por haberte brindado una experiencia memorable.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">Billing address</h4>
+            <form class="needs-validation" novalidate="">
+                <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Nombre completo</label>
+                    <input type="text" class="form-control" id="name" placeholder="" value="" required="">
+                    <div class="invalid-feedback">
+                    Nombre complero es requerido
+                    </div>
+                </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email">Email <span class="text-muted">(*)</span></label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mb-3">Tipo de documento</h4>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required="">
+                            <label class="custom-control-label" for="credit">Cédula de ciudadanía</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                            <label class="custom-control-label" for="debit">Cédula de extranjeria</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                            <label class="custom-control-label" for="paypal">NIT</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                            <label class="custom-control-label" for="paypal">Pasaporte</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email">Numero de documento <span class="text-muted">(*)</span></label>
+                        <input type="number" class="form-control" id="numberdocumento">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+
+                <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="numerofactura">Número de factura</label>
+                    <input type="text" class="form-control" id="numerofactura" placeholder="" value="" required="">
+                    <div class="invalid-feedback">
+                    Número de factura es requerido
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fecha">Fecha de factura</label>
+                    <input type="date" class="form-control" id="fecha" placeholder="" value="" required="">
+                    <div class="invalid-feedback">
+                    Número de factura es requerido
+                    </div>
+                </div>
+                </div>
+
+                <hr class="mb-4">
+
+                <div class="row">
+                <div class="col-md-5 mb-3">
+                    <label for="country">Country</label>
+                    <select class="custom-select d-block w-100" id="country" required="">
+                    <option value="">Choose...</option>
+                    <option>United States</option>
+                    </select>
+                    <div class="invalid-feedback">
+                    Please select a valid country.
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="state">State</label>
+                    <select class="custom-select d-block w-100" id="state" required="">
+                    <option value="">Choose...</option>
+                    <option>California</option>
+                    </select>
+                    <div class="invalid-feedback">
+                    Please provide a valid state.
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="zip">Zip</label>
+                    <input type="text" class="form-control" id="zip" placeholder="" required="">
+                    <div class="invalid-feedback">
+                    Zip code required.
+                    </div>
+                </div>
+                </div>
+                <hr class="mb-4">
+                <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="same-address">
+                <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="save-info">
+                <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                </div>
+                <hr class="mb-4">
+
+                <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="cc-name">Name on card</label>
+                    <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                    <small class="text-muted">Full name as displayed on card</small>
+                    <div class="invalid-feedback">
+                    Name on card is required
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cc-number">Credit card number</label>
+                    <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                    <div class="invalid-feedback">
+                    Credit card number is required
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label for="cc-expiration">Expiration</label>
+                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                    <div class="invalid-feedback">
+                    Expiration date required
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="cc-expiration">CVV</label>
+                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                    <div class="invalid-feedback">
+                    Security code required
+                    </div>
+                </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            </form>
+            </div>
+        </div>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">© 2017-2018 Company Name</p>
+            <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </footer>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/vendor/holder.min.js"></script>
+    </body>
+</html>

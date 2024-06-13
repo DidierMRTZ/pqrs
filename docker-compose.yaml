@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:14.0
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+
+  web:
+    build:
+      context: .
+      target: builder
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from Compose is SIGTERM)
+    stop_signal: SIGINT
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/code
+    depends_on:
+      - postgres
