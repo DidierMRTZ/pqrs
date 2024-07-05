@@ -28,8 +28,7 @@ cursor = conn.cursor()
 email_address = 'mundimotosrpa@outlook.com'
 email_password =  'rxvpaszfucejgsol'
 
-
-""" ------------------------ Generar token autenticacion con API graph microsoft ----------------"""
+""" ------------------------ Generar token autenticacion con API graph microsoft ---------"""
 
 client_id = os.getenv("client_id")
 client_secret = os.getenv("client_secret")
@@ -46,8 +45,6 @@ if "access_token" in result:
     print(f'Token: {token}')
 else:
     print("Error acquiring token:", result.get("error"), result.get("error_description"))
-
-
 # Realizar una solicitud
 
 headers = {
@@ -61,7 +58,10 @@ for form in response.json()['value']:
     
     fields=response_id.json()['fields']
     pqrs=(fields['Solicitud'],fields['nombre_completo'],fields['tipo_documento'],int(fields['numero_documento']),fields['correo_electronico'],int(fields['telefono_contacto']),fields['fecha_compra'],fields['numero_factura'],fields['area'],fields['descripcion'],fields['sede'],fields['politica_datos'],fields['id'])
+    if fields['area'] == "Servicio al cliente":
+        fields['area'] = "ServicioCliente"
     print(pqrs)
+    
     try:
         # Eliminar espacion vacios
         if None in pqrs:
@@ -127,8 +127,9 @@ for form in response.json()['value']:
             else:
                 contenido_html = f"""
                     <h2 style="text-align: center">Felicidades</h2>
-                    <p> Mensaje de felicitcion</p>
+                    <p> Mensaje de felicitacion</p>
                 """
+                continue
             # Adjuntar el contenido HTML al mensaje
             mensaje.attach(MIMEText(contenido_html, 'html'))
 
@@ -156,4 +157,3 @@ for form in response.json()['value']:
                 server.quit()
     except:
         print('Error')
-
