@@ -55,7 +55,6 @@ response = requests.get(f"https://graph.microsoft.com/v1.0/sites/12750d54-6748-4
 
 for form in response.json()['value']:
     response_id = requests.get(f"https://graph.microsoft.com/v1.0/sites/12750d54-6748-4206-97bd-94929c8d55a6/lists/55bf5444-d5f7-412a-a520-a6e70e36bfbb/items/{form['id']}", headers=headers)
-    
     fields=response_id.json()['fields']
     pqrs=(fields['Solicitud'],fields['nombre_completo'],fields['tipo_documento'],int(fields['numero_documento']),fields['correo_electronico'],int(fields['telefono_contacto']),fields['fecha_compra'],fields['numero_factura'],fields['area'],fields['descripcion'],fields['sede'],fields['politica_datos'],fields['id'])
     if fields['area'] == "Servicio al cliente":
@@ -102,7 +101,7 @@ for form in response.json()['value']:
         mensaje = MIMEMultipart()
         mensaje['From'] = email_address
         
-        mensaje['Subject'] = 'Gestion PQRS'
+        mensaje['Subject'] = 'Gestion PQRSF'
 
         if sqlstate_delete == True or sqlstate_insert == True:
             Correo='diidierstev@gmail.com'
@@ -116,13 +115,18 @@ for form in response.json()['value']:
             if Solicitud !='Felicitaciones':
                 contenido_html = f"""
                     <h2 style="text-align: center">GESTION PQRS</h2>
-                    <p> Hola, ¡esperamos te encuentres muy bien!
-                        
-                    Para Mundimotos es muy importante conocer tu opinión, por esto te confirmamos que hemos recibido tu PQR y la misma quedó radicada con el número {RecordID},  el cual te permitirá hacer seguimiento a tu trámite.
-                        
-                    Recuerda que contamos con 15 días hábiles (lunes a viernes) para dar respuesta, de acuerdo con ley 1755 de 2015.
-                        
+
+                    <p> Hola, ¡esperamos te encuentres muy bien! <br>
+                    <br>
+                    Para Mundimotos es muy importante conocer tu opinión, por esto te confirmamos que hemos recibido tu PQR, la misma quedó radicada con el número {RecordID}. Este radicado te permitirá hacer seguimiento a tu trámite, <br>
+                    
+                    a través del correo electrónico servicioalcliente@mundimotos.com y  al número telefónico XXXXXXXXX. Recuerda que contamos con 15 días hábiles (lunes a viernes) para dar respuesta, de acuerdo con ley 1755 de 2015. <br>
+                    <br> 
                     Gracias por escribirnos.</p>
+                    <br>
+                    <div class="footer">
+                        <p>Este mensaje (y sus anexos) contiene información privada, confidencial y privilegiada. Si usted es el destinatario real del mismo, al abrir el contenido, acepta la responsabilidad de mantenerlo en estricta confidencialidad y la obligación de no compartirlo, sin previa autorización escrita del remitente. Si usted no es el destinatario real del mismo, por favor informe de ello a quien lo envía y destrúyalo en forma inmediata.</p>
+                    </div>
                 """
             else:
                 contenido_html = f"""
