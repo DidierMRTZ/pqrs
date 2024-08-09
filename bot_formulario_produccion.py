@@ -142,12 +142,7 @@ for form in response['value']:
                     total_items_eliminados=total_items_eliminados+1
 
             """-------------- Enviar correo ---------"""
-            # Crear el mensaje
-            mensaje = MIMEMultipart()
-            mensaje['From'] = email_address
-            mensaje['Subject'] = 'Gestion PQRS'
-            mensaje['To'] = Correo
-            
+
             # Contenido HTML del mensaje
             if Solicitud !='Felicitaciones':
                 contenido_html = f"""
@@ -156,7 +151,7 @@ for form in response['value']:
                         
                     Para Mundimotos es muy importante conocer tu opinión, por esto te confirmamos que hemos recibido tu PQR, la misma quedó radicada con el número {RecordID}. Este radicado te permitirá hacer seguimiento a tu trámite,
                     
-                    a través del correo electrónico servicioalcliente@mundimotos.com y al número telefónico XXXXXXXXX.<br>
+                    a través del correo electrónico servicioalcliente@mundimotos.com <br>
 
                     Recuerda que contamos con 15 días hábiles (lunes a viernes) para dar respuesta, de acuerdo con ley 1755 de 2015.<br>
                     
@@ -166,31 +161,57 @@ for form in response['value']:
                         <p>Este mensaje (y sus anexos) contiene información privada, confidencial y privilegiada. Si usted es el destinatario real del mismo, al abrir el contenido, acepta la responsabilidad de mantenerlo en estricta confidencialidad y la obligación de no compartirlo, sin previa autorización escrita del remitente. Si usted no es el destinatario real del mismo, por favor informe de ello a quien lo envía y destrúyalo en forma inmediata.</p>
                     </div>
                 """
-                # Adjuntar el contenido HTML al mensaje
-                mensaje.attach(MIMEText(contenido_html, 'html'))
-                # Configurar el servidor SMTP de Outlook
-                servidor_smtp = 'smtp.office365.com'
-                puerto_smtp = 587
+                dic={
+                    "message": {
+                            "subject": "GESTION PQRSF",
+                            "body": {
+                            "contentType": "HTML",
+                            "content": contenido_html
+                            },
+                            "toRecipients": [
+                            {
+                                "emailAddress": {
+                                "address": Correo
+                                }
+                            }
+                            ],
+                            "internetMessageHeaders": [
+                            {
+                                "name": "x-custom-header-group-name",
+                                "value": "Nevada"
+                            },
+                            {
+                                "name": "x-custom-header-group-id",
+                                "value": "NV001"
+                            }
+                            ]
+                        }
+                    }
                 try:
-                    # Iniciar conexión SMTP
-                    server = smtplib.SMTP(servidor_smtp, puerto_smtp)
-                    server.starttls()
-
-                    # Autenticación
-                    server.login(email_address, email_password)
-
-                    # Enviar el correo electrónico
-                    server.sendmail(email_address, Correo, mensaje.as_string())
-                    print("Correo HTML enviado correctamente")
-                    total_correos_enviados=total_correos_enviados+1
-                except Exception as e:
-                    print(f"No se pudo enviar el correo HTML. Error: {str(e)}")
-                finally:
-                    # Cerrar conexión SMTP
-                    server.quit()
+                    response=requests.post('https://graph.microsoft.com/v1.0/users/Servicioalcliente@mundimotos.com/sendMail',headers=headers,json=dic)
+                    if response.status_code == 202:
+                        total_correos_enviados=total_correos_enviados+1
+                        print("Correo HTML enviado correctamente")
+                    else:
+                        #Generar token
+                        app = msal.ConfidentialClientApplication(client_id, authority=authority, client_credential=client_secret)
+                        scope = ["https://graph.microsoft.com/.default"]
+                        result = app.acquire_token_for_client(scopes=scope)
+                        if "access_token" in result:
+                            token = result['access_token']
+                            response=requests.post('https://graph.microsoft.com/v1.0/users/Servicioalcliente@mundimotos.com/sendMail',headers=headers,json=dic)
+                            if response.status_code == 202:
+                                total_correos_enviados=total_correos_enviados+1
+                                print("Correo HTML enviado correctamente")
+                            else:
+                                print("XX Error al enviar correo")
+                        else:
+                            print("Error acquiring token:", result.get("error"), result.get("error_description"))
+                except:
+                    print("XX Error al enviar correo")
             else:
-                total_correos_enviados=total_correos_enviados+1
-                server.quit()
+                #No envia correo
+                None
         except:
             print('Error general')
 
